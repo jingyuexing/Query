@@ -1,0 +1,25 @@
+{
+  "name": "queryDSL",
+  "version": "0.0.0",
+  "type": "module",
+  "description": "query language",
+  "main": "index.js",
+  "scripts": {
+    "build":"npx rollup -c"
+  },
+  "keywords": [
+    "Query",
+    "AST",
+    "compiler"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@types/node": "^20.12.9",
+    "rollup": "^4.17.2",
+    "rollup-plugin-dts": "^6.1.0",
+    "rollup-plugin-esbuild": "^6.1.1"
+  }
+}
