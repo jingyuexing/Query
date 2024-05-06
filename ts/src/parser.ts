@@ -75,6 +75,7 @@ export function parser(tokens: Token[]) {
                     case TokenKind.LessThan:
                     case TokenKind.LessThanOrEqual:
                     case TokenKind.NotEqual:
+                    case TokenKind.Equal:
                         condition.value = token.value
                         break;
                     case TokenKind.Comma:
@@ -83,6 +84,7 @@ export function parser(tokens: Token[]) {
                     case TokenKind.Number:
                         condition.condition.push(createLiteralNode(ASTNodeKind.Number,token.value))
                         break;
+                    case TokenKind.Text:
                     case TokenKind.Identifier:
                         condition.condition.push(createLiteralNode(ASTNodeKind.Text,token.value))
                         break;

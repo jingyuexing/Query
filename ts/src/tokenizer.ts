@@ -15,6 +15,7 @@ export enum TokenKind {
 	LessThanOrEqual = "LessThanOrEqual",
 	GreatThanOrEqual = "GreatThanOrEqual",
 	COLON = "Colon",
+	Equal = "Equal",
 	Number = "Number",
 	Text = "Text",
 	Identifier = "Identifier",
@@ -50,12 +51,17 @@ export function tokenizer(text: string) {
 	}
 	while (current < text.length) {
 		ch = text[current];
-		if (isWhiteSpace(ch)) {
-			while(isWhiteSpace(ch) && current < text.length){
+		if (isWhiteSpace(ch) || ch === ";") {
+			while((isWhiteSpace(ch) || ch === ";") && current < text.length){
 				adavance();
 			}
 			tokens.push(createToken(TokenKind.Terminator,";"))
 			continue;
+		}
+		if(ch === "="){
+			tokens.push(createToken(TokenKind.Equal,ch))
+			adavance()
+			continue
 		}
 		if (isNumberic(ch)) {
 			let value = "";
@@ -64,6 +70,14 @@ export function tokenizer(text: string) {
 				adavance();
 			}
 			tokens.push(createToken(TokenKind.Number, value));
+		}
+		if(ch === "\"" || ch === "'" || ch === "("){
+			let value = "";
+			while([')',"'",'"'].includes(ch) && current < text.length){
+				value += ch;
+				adavance()
+			}
+			tokens.push(createToken(TokenKind.Text,value))
 		}
 		if (isLetter(ch)) {
 			let value = "";
