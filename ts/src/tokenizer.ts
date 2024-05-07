@@ -92,10 +92,12 @@ export function tokenizer(text: string) {
 		}
 		if(ch === "/"){
 			let value = ""
+			adavance()
 			while(ch !== "/" && current < text.length){
 				value += ch
 				adavance()
 			}
+			adavance()
 			tokens.push(createToken(TokenKind.Regular, value));
 		}
 		if (ch === ":") {
