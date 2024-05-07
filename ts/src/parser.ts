@@ -5,7 +5,8 @@ export enum ASTNodeKind {
     Expression = "Expression",
     ConditionExpression = "ConditionExpression",
     Number = "Number",
-    Text = "Text"
+    Text = "Text",
+    Regular = "Regular"
 }
 
 interface Node {
@@ -88,6 +89,10 @@ export function parser(tokens: Token[]) {
                     case TokenKind.Identifier:
                         condition.condition.push(createLiteralNode(ASTNodeKind.Text,token.value))
                         break;
+                    case TokenKind.Regular:
+                        condition.condition.push(createLiteralNode(ASTNodeKind.Regular,token.value))
+                        break;
+
                 }
                 eat()
             }

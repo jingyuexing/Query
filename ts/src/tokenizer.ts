@@ -21,7 +21,8 @@ export enum TokenKind {
 	Identifier = "Identifier",
 	NotEqual = "NotEqual",
 	Terminator = "Terminator",
-	Comma = "Comma"
+	Comma = "Comma",
+	Regular = "Regular"
 }
 export interface Token {
 	type: TokenKind;
@@ -73,10 +74,12 @@ export function tokenizer(text: string) {
 		}
 		if(ch === "\"" || ch === "'" || ch === "("){
 			let value = "";
-			while([')',"'",'"'].includes(ch) && current < text.length){
+			adavance()
+			while(![')',"'",'"'].includes(ch) && current < text.length){
 				value += ch;
 				adavance()
 			}
+			adavance()
 			tokens.push(createToken(TokenKind.Text,value))
 		}
 		if (isLetter(ch)) {
@@ -86,6 +89,14 @@ export function tokenizer(text: string) {
 				adavance();
 			}
 			tokens.push(createToken(TokenKind.Identifier, value));
+		}
+		if(ch === "/"){
+			let value = ""
+			while(ch !== "/" && current < text.length){
+				value += ch
+				adavance()
+			}
+			tokens.push(createToken(TokenKind.Regular, value));
 		}
 		if (ch === ":") {
 			tokens.push(createToken(TokenKind.COLON, ch));
